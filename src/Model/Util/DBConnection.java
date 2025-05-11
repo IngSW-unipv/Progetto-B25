@@ -39,15 +39,11 @@ public class DBConnection {
     /**
      *
      * @param conn
-     * @param schema
      * @return
      */
-    public static Connection startConnection(Connection conn, String schema)
+    public static Connection startConnection(Connection conn)
     {
         init();
-        System.out.println(dbURL);
-
-
 
         if ( isOpen(conn) )
             closeConnection(conn);
@@ -55,8 +51,6 @@ public class DBConnection {
         try
         {
 
-            dbURL=String.format(dbURL,schema);
-            //	System.out.println(dbURL);
             Class.forName(dbDriver);
 
             conn = DriverManager.getConnection(dbURL, username, password);// Apertura connessione
