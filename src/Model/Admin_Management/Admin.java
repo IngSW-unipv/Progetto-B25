@@ -5,9 +5,9 @@ public class Admin {
     protected String surname;
     protected String email;
     protected String password;
-    protected String role;
+    protected AdminRoles role;
 
-    public Admin(String name, String surname, String email, String password, String role) {
+    public Admin(String name, String surname, String email, String password, AdminRoles role) {
         this.name = name;
         this.surname = surname;
         this.email = email;
@@ -35,7 +35,7 @@ public class Admin {
         this.email = email;
     }
 
-    public String getRole() {
+    public AdminRoles getRole() {
         return role;
     }
 
@@ -47,7 +47,7 @@ public class Admin {
         this.surname = surname;
     }
 
-    public void setRole(String role) {
+    public void setRole(AdminRoles role) {
         this.role = role;
     }
 
