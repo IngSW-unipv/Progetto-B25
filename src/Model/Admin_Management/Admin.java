@@ -1,23 +1,37 @@
 package Model.Admin_Management;
-
+import java.time.LocalDate;
 public class Admin {
     protected String name;
     protected String surname;
     protected String email;
     protected String password;
+    protected LocalDate CreationDate;
+    public int getAdmin_id() {
+        return Admin_id;
+    }
+
+    public void setAdmin_id(int admin_id) {
+        Admin_id = admin_id;
+    }
+
     protected AdminRoles role;
+    private int Admin_id;
 
     public Admin(String name, String surname, String email, String password, AdminRoles role) {
         this.name = name;
         this.surname = surname;
         this.email = email;
         this.password = password;
-        this.role = role;
-
+        this.role= role;
+        this.CreationDate=LocalDate.now();
     }
 
 /*public boolean checkPassword(String pass) {
     }*/
+
+   //data di creazione
+
+
 
     public String getPassword() {
         return password;
