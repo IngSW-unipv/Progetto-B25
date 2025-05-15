@@ -1,23 +1,52 @@
 package Model.Tournament;
 
+import java.time.LocalDate;
+
 public class Tournament {
     private String tournamentName;
     private int tournamentId;
-    private Enum tournamentStatus;
+    private StateTournament tournamentStatus;
     private double entryFee;
     private double prizePool;
     private int numMaxPlayer;
-    private Enum levelRequirement;
+    private int levelRequirement;
     private int numRound;
     private int roundTime; //Non ho idea di come definire una variabile di tempo su JAVA
     private Enum gamesType;
     private int numFishRound;
     private int adminId;
+    private LocalDate tournamentDataCreation;
 
-    public Tournament(String tournamentName, int tournamentId, Enum tournamentStatus, double entryFee, double prizePool, int numMaxPlayer, Enum levelRequirement, int numRound, int roundTime, Enum gamesType, int numFishRound) {
+    /**
+     *
+     * @param adminId
+     * @param tournamentName
+     */
+    public Tournament(int adminId, String tournamentName) {
+        this.adminId = adminId;
+        this.tournamentName = tournamentName;
+        tournamentStatus = StateTournament.PUBBLICO;
+        tournamentDataCreation = LocalDate.now();
+    }
+
+
+    /**
+     *
+     * @param tournamentName
+     * @param tournamentId
+     * @param tournamentStatus
+     * @param entryFee
+     * @param prizePool
+     * @param numMaxPlayer
+     * @param levelRequirement
+     * @param numRound
+     * @param roundTime
+     * @param gamesType
+     * @param numFishRound
+     */
+    public Tournament(String tournamentName, int tournamentId, Enum tournamentStatus, double entryFee, double prizePool, int numMaxPlayer, int levelRequirement, int numRound, int roundTime, Enum gamesType, int numFishRound) {
         this.tournamentName = tournamentName;
         this.tournamentId = tournamentId;
-        this.tournamentStatus = tournamentStatus;
         this.entryFee = entryFee;
         this.prizePool = prizePool;
         this.numMaxPlayer = numMaxPlayer;
@@ -43,7 +72,7 @@ public class Tournament {
         this.tournamentId = tournamentId;
     }
 
-    public void setTournamentStatus(Enum tournamentStatus) {
+    public void setTournamentStatus(StateTournament tournamentStatus) {
         this.tournamentStatus = tournamentStatus;
     }
 
@@ -59,7 +88,7 @@ public class Tournament {
         this.numMaxPlayer = numMaxPlayer;
     }
 
-    public void setLevelRequirement(Enum levelRequirement) {
+    public void setLevelRequirement(int levelRequirement) {
         this.levelRequirement = levelRequirement;
     }
 
@@ -109,7 +138,7 @@ public class Tournament {
         return numMaxPlayer;
     }
 
-    public Enum getLevelRequirement() {
+    public int getLevelRequirement() {
         return levelRequirement;
     }
 
