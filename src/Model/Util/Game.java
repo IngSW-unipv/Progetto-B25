@@ -1,13 +1,11 @@
 package Model.Util;
 class Game {
-    private static int counter = 1;
     private int id;
-    private String nome;
-    private boolean attivo;
+    private String name;
+    private boolean active;
 
     public Game(String nome) {
-        this.id = counter++;
-        this.nome = nome;
-        this.attivo = true;
+        this.name = nome;
+        this.active = true;
     }
 }
