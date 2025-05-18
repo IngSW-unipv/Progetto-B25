@@ -6,18 +6,10 @@ public class Admin {
     protected String email;
     protected String password;
     protected LocalDate CreationDate;
-    public int getAdmin_id() {
-        return Admin_id;
-    }
-
-    public void setAdmin_id(int admin_id) {
-        Admin_id = admin_id;
-    }
-
     protected AdminRoles role;
     private int Admin_id;
 
-    public Admin(String name, String surname, String email, String password, AdminRoles role) {
+    public Admin(String name, String surname, String email, String password, AdminRoles role, LocalDate creationDate) {
         this.name = name;
         this.surname = surname;
         this.email = email;
@@ -26,12 +18,7 @@ public class Admin {
         this.CreationDate=LocalDate.now();
     }
 
-/*public boolean checkPassword(String pass) {
-    }*/
-
-   //data di creazione
-
-
+public boolean checkPassword(String pass) {return password.equals(pass);}
 
     public String getPassword() {
         return password;
@@ -72,5 +59,22 @@ public class Admin {
     public void setName(String name) {
         this.name = name;
     }
+
+    public LocalDate getCreationDate() {
+        return CreationDate;
+    }
+
+    public void setCreationDate(LocalDate creationDate) {
+        CreationDate = creationDate;
+    }
+
+    public int getAdmin_id() {
+        return Admin_id;
+    }
+
+    public void setAdmin_id(int admin_id) {
+        Admin_id = admin_id;
+    }
+
 }
 
