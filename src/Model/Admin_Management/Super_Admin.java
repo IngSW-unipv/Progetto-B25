@@ -4,27 +4,30 @@ package Model.Admin_Management;
 import java.time.LocalDate;
 
 public class Super_Admin extends Admin {
-    public Super_Admin(String name, String surname, String email, String password, AdminRoles role, LocalDate creationDate) {
-        super(name,surname,email, password, AdminRoles.SUPER_ADMIN, creationDate);
+    public Super_Admin(int Admin_id, String name, String surname, String email, String password, AdminRoles role, LocalDate creationDate) {
+        super(Admin_id, name, surname, email, password, role, creationDate);
     }
 
+    public Super_Admin(String name, String surname, String email, String password, AdminRoles role) {
+        super(name, surname, email, password, role);
+    }
 
     public static Admin createAdmin(String name, String surname, String role) {
-        String email = generateEmail();
-        String password = generatePassword(name, surname);
-        switch(role){
-            case "SUPER_ADMIN":
-                return new Super_Admin(name, surname, email, password, AdminRoles.SUPER_ADMIN, LocalDate.now());
-            case "HELPDESK_ADMIN":
-                return new HelpDesk_Admin(name, surname, email, password, AdminRoles.HELPDESK_ADMIN, LocalDate.now());
-            case "GAMES_ADMIN":
-                return new Games_Admin(name, surname, email, password, AdminRoles.GAMES_ADMIN, LocalDate.now());
-            case "TOURNAMENT_ADMIN":
-                return new Tournament_Admin(name, surname, email, password, AdminRoles.TOURNAMENT_ADMIN, LocalDate.now());
-            case "WALLET_ADMIN":
-                return new Wallet_Admin(name, surname, email, password, AdminRoles.WALLET_ADMIN, LocalDate.now());
+            String email = generateEmail();
+            String password = generatePassword(name, surname);
+            switch(role){
+                case "SUPER_ADMIN":
+                    return new Super_Admin( name,surname, email,  password, AdminRoles.SUPER_ADMIN);
+                case "HELPDESK_ADMIN":
+                    return new HelpDesk_Admin( name,  surname,  email,  password,  AdminRoles.HELPDESK_ADMIN);
+                case "GAMES_ADMIN":
+                    return new Games_Admin(name, surname, email, password, AdminRoles.GAMES_ADMIN);
+                case "TOURNAMENT_ADMIN":
+                    return new Tournament_Admin(name, surname, email, password, AdminRoles.TOURNAMENT_ADMIN );
+                case "WALLET_ADMIN":
+                    return new Wallet_Admin(name, surname, email, password, AdminRoles.WALLET_ADMIN);
                 default: return null;
-        }
+            }
 
     }
 

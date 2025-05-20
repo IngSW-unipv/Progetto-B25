@@ -9,16 +9,26 @@ public class Admin {
     protected AdminRoles role;
     private int Admin_id;
 
-    public Admin(String name, String surname, String email, String password, AdminRoles role, LocalDate creationDate) {
+    public Admin(String name, String surname, String email, String password, AdminRoles role) {
         this.name = name;
         this.surname = surname;
         this.email = email;
         this.password = password;
         this.role= role;
-        this.CreationDate=LocalDate.now();
+        CreationDate=LocalDate.now();
     }
+public Admin(int Admin_id, String name, String surname, String email, String password, AdminRoles role, LocalDate creationDate) {
+        this.Admin_id = Admin_id;
+        this.name = name;
+        this.surname = surname;
+        this.email = email;
+        this.password = password;
+        this.role= role;
+        this.CreationDate=creationDate;
 
-public boolean checkPassword(String pass) {return password.equals(pass);}
+}
+    public boolean checkPassword(String pass)
+    {return password.equals(pass);}
 
     public String getPassword() {
         return password;
