@@ -12,7 +12,6 @@ public class Tournament {
     private int levelRequirement;
     private int numRound;
     private int roundTime; //Non ho idea di come definire una variabile di tempo su JAVA
-    private Enum gamesType;
     private int numFishRound;
     private int adminId;
     private LocalDate tournamentDataCreation;
@@ -41,10 +40,9 @@ public class Tournament {
      * @param levelRequirement
      * @param numRound
      * @param roundTime
-     * @param gamesType
      * @param numFishRound
      */
-    public Tournament(String tournamentName, int tournamentId, Enum tournamentStatus, double entryFee, double prizePool, int numMaxPlayer, int levelRequirement, int numRound, int roundTime, Enum gamesType, int numFishRound) {
+    public Tournament(String tournamentName, int tournamentId, Enum tournamentStatus, double entryFee, double prizePool, int numMaxPlayer, int levelRequirement, int numRound, int roundTime, int numFishRound) {
         this.tournamentName = tournamentName;
         this.tournamentId = tournamentId;
         this.entryFee = entryFee;
@@ -53,7 +51,7 @@ public class Tournament {
         this.levelRequirement = levelRequirement;
         this.numRound = numRound;
         this.roundTime = roundTime;
-        this.gamesType = gamesType;
+
         this.numFishRound = numFishRound;
 
         //per l'adminID andrà preso l'id dell'admin e associato al tournament, dovrà essere una cosa che avviene in automatico
@@ -100,16 +98,16 @@ public class Tournament {
         this.roundTime = roundTime;
     }
 
-    public void setGamesType(Enum gamesType) {
-        this.gamesType = gamesType;
-    }
-
     public void setNumFishRound(int numFishRound) {
         this.numFishRound = numFishRound;
     }
 
     public void setAdminId(int adminId) {
         this.adminId = adminId;
+    }
+
+    public void setTournamentDataCreation(LocalDate tournamentDataCreation) {
+        this.tournamentDataCreation = tournamentDataCreation;
     }
 
     //GETTER
@@ -122,7 +120,7 @@ public class Tournament {
         return tournamentId;
     }
 
-    public Enum getTournamentStatus() {
+    public StateTournament getTournamentStatus() {
         return tournamentStatus;
     }
 
@@ -150,16 +148,16 @@ public class Tournament {
         return roundTime;
     }
 
-    public Enum getGamesType() {
-        return gamesType;
-    }
-
     public int getNumFishRound() {
         return numFishRound;
     }
 
     public int getAdminId() {
         return adminId;
+    }
+
+    public LocalDate getTournamentDataCreation() {
+        return tournamentDataCreation;
     }
 }
 
