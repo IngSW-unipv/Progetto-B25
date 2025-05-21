@@ -42,7 +42,7 @@ public class Tournament {
      * @param roundTime
      * @param numFishRound
      */
-    public Tournament(String tournamentName, int tournamentId, Enum tournamentStatus, double entryFee, double prizePool, int numMaxPlayer, int levelRequirement, int numRound, int roundTime, int numFishRound) {
+    public Tournament(String tournamentName, int tournamentId, StateTournament tournamentStatus, double entryFee, double prizePool, int numMaxPlayer, int levelRequirement, int numRound, int roundTime, int numFishRound) {
         this.tournamentName = tournamentName;
         this.tournamentId = tournamentId;
         this.entryFee = entryFee;

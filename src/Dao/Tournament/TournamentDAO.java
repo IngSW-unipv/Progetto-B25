@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 public class TournamentDAO implements ITournamentDAO {
     private Connection conn;
@@ -63,7 +64,7 @@ public class TournamentDAO implements ITournamentDAO {
         return outcome;
     }
 
-    @Override
+
     public boolean deleteTournament(Tournament tournament) {
         conn= DBConnection.startConnection(conn);
         PreparedStatement st1;
@@ -122,5 +123,47 @@ public class TournamentDAO implements ITournamentDAO {
 
         DBConnection.closeConnection(conn);
         return outcome;
+    }
+
+
+
+    private ArrayList<Tournament> getAllTournament() {
+        conn= DBConnection.startConnection(conn);
+        PreparedStatement st1;
+        ArrayList<Tournament> tournaments = new ArrayList<>();
+
+        try{
+            String query = "SELECT * FROM TOURNAMENT";
+            st1 = conn.prepareStatement(query);
+
+            ResultSet rs = st1.executeQuery();
+
+
+            /*
+            while (rs.next()) {
+                Tournament t = new Tournament(
+                        rs.getString(1),
+                        StateTournament.valueOf(rs.getString(2)),
+                        rs.getDouble(3),
+                        rs.getDouble(4),
+                        rs.getInt(5),
+                        rs.getInt(6),
+                        rs.getInt(7),
+                        rs.getInt(8),
+                        rs.getInt(9),
+                        rs.getInt(10),
+                        rs.getDate(11).toLocalDate()
+                );
+                tournaments.add(t);
+            }*/
+
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+
+        DBConnection.closeConnection(conn);
+        return tournaments;
     }
 }
