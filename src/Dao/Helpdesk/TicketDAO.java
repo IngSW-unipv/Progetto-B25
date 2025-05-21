@@ -1,6 +1,6 @@
 package Dao.Helpdesk;
 
-import Model.Helpdesk.Message;
+
 import Model.Helpdesk.StateTicket;
 import Model.Helpdesk.Ticket;
 import Model.Util.DBConnection;
