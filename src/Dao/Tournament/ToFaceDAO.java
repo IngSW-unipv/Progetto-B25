@@ -27,13 +27,9 @@ public class ToFaceDAO implements IToFaceDAO {
 
             int affectedRows = st1.executeUpdate();
 
-            if(affectedRows > 0){
-                try (ResultSet generatedKeys = st1.getGeneratedKeys()) {
-                    if (generatedKeys.next()) {
-                        int generatedId = generatedKeys.getInt(1);
-                            toFace.setRoundId(generatedId);
-                    }
-                }
+            if(affectedRows == 0){
+                outcome = false;
+
             } else {
                 outcome = false;
             }

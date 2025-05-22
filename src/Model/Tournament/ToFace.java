@@ -1,14 +1,12 @@
 package Model.Tournament;
 
 public class ToFace {
-    private int toFaceId;
     private int roundId;
     private int userId;
     private double fishWin;
 
 
-    public ToFace(int toFaceId, int roundId, int userId) {
-        this.toFaceId = toFaceId;
+    public ToFace(int roundId, int userId) {
         this.roundId = roundId;
         this.userId = userId;
     }
@@ -16,10 +14,6 @@ public class ToFace {
 
 
     //SETTER
-
-    public void setToFaceId(int toFaceId) {
-        this.toFaceId = toFaceId;
-    }
 
     public void setRoundId(int roundId) {
         this.roundId = roundId;
@@ -34,10 +28,6 @@ public class ToFace {
     }
 
     //GETTER
-
-    public int getToFaceId() {
-        return toFaceId;
-    }
 
     public int getRoundId() {
         return roundId;

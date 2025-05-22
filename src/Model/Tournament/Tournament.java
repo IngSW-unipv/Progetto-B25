@@ -11,8 +11,6 @@ public class Tournament {
     private int numMaxPlayer;
     private int levelRequirement;
     private int numRound;
-    private int roundTime; //Non ho idea di come definire una variabile di tempo su JAVA
-    private int numFishRound;
     private int adminId;
     private LocalDate tournamentDataCreation;
 
@@ -21,9 +19,16 @@ public class Tournament {
      * @param adminId
      * @param tournamentName
      */
-    public Tournament(int adminId, String tournamentName) {
+    public Tournament(int adminId, String tournamentName, double entryFee, double prizePool, int numMaxPlayer, int levelRequirement, int numRound) {
         this.adminId = adminId;
         this.tournamentName = tournamentName;
+        this.entryFee = entryFee;
+        this.prizePool = prizePool;
+        this.numMaxPlayer = numMaxPlayer;
+        this.levelRequirement = levelRequirement;
+        this.numRound = numRound;
+
+
         tournamentStatus = StateTournament.PUBBLICO;
         tournamentDataCreation = LocalDate.now();
     }
@@ -39,10 +44,8 @@ public class Tournament {
      * @param numMaxPlayer
      * @param levelRequirement
      * @param numRound
-     * @param roundTime
-     * @param numFishRound
      */
-    public Tournament(String tournamentName, int tournamentId, StateTournament tournamentStatus, double entryFee, double prizePool, int numMaxPlayer, int levelRequirement, int numRound, int roundTime, int numFishRound) {
+    public Tournament(String tournamentName, int tournamentId, StateTournament tournamentStatus, double entryFee, double prizePool, int numMaxPlayer, int levelRequirement, int numRound, LocalDate tournamentDataCreation, int adminId) {
         this.tournamentName = tournamentName;
         this.tournamentId = tournamentId;
         this.entryFee = entryFee;
@@ -50,11 +53,8 @@ public class Tournament {
         this.numMaxPlayer = numMaxPlayer;
         this.levelRequirement = levelRequirement;
         this.numRound = numRound;
-        this.roundTime = roundTime;
+        this.adminId = adminId;
 
-        this.numFishRound = numFishRound;
-
-        //per l'adminID andrà preso l'id dell'admin e associato al tournament, dovrà essere una cosa che avviene in automatico
     }
 
 
@@ -92,14 +92,6 @@ public class Tournament {
 
     public void setNumRound(int numRound) {
         this.numRound = numRound;
-    }
-
-    public void setRoundTime(int roundTime) {
-        this.roundTime = roundTime;
-    }
-
-    public void setNumFishRound(int numFishRound) {
-        this.numFishRound = numFishRound;
     }
 
     public void setAdminId(int adminId) {
@@ -144,13 +136,6 @@ public class Tournament {
         return numRound;
     }
 
-    public int getRoundTime() {
-        return roundTime;
-    }
-
-    public int getNumFishRound() {
-        return numFishRound;
-    }
 
     public int getAdminId() {
         return adminId;

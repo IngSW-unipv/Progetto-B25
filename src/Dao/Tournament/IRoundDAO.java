@@ -1,8 +1,8 @@
 package Dao.Tournament;
 
 import Model.Tournament.Tournament;
-import Model.Tournament.TournamentRound;
+import Model.Tournament.Round;
 
 public interface IRoundDAO {
-    public boolean createRound(Tournament tournament, TournamentRound round);
+    public boolean createRound(Round round);
 }

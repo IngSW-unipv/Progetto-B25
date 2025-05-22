@@ -10,6 +10,34 @@ public class Participate {
     private double balancePre;
     private double balancePost;
 
+
+    /**
+     *
+     * @param tournamentId
+     * @param userId
+     * @param rank
+     * @param balancePre
+     * @param balancePost
+     */
+    public Participate(int tournamentId, int userId, int rank, double balancePre, double balancePost) {
+        this.tournamentId = tournamentId;
+        this.userId = userId;
+        this.rank = rank;
+        this.balancePre = balancePre;
+        this.balancePost = balancePost;
+
+        participateDate = LocalDate.now();
+    }
+
+    /**
+     *
+     * @param tournamentId
+     * @param userId
+     * @param participateDate
+     * @param rank
+     * @param balancePre
+     * @param balancePost
+     */
     public Participate(int tournamentId, int userId, LocalDate participateDate, int rank, double balancePre, double balancePost) {
         this.tournamentId = tournamentId;
         this.userId = userId;

@@ -23,7 +23,7 @@ public class TournamentDAO implements ITournamentDAO {
 
         try
         {
-            String query = "INSERT INTO TOURNAMENT (TOURNAMENTNAME,TOURNAMENTSTATUS,ENTRYFEE,PRIZEPOOL,NUMMAXPLAYER,LEVELREQUIREMENT,NUMROUND,ROUNDTIME,NUMFISHROUND,ADMINID,TOURNAMENTDATACREATION) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            String query = "INSERT INTO TOURNAMENT (TOURNAMENTNAME,TOURNAMENTSTATUS,ENTRYFEE,PRIZEPOOL,NUMMAXPLAYER,LEVELREQUIREMENT,NUMROUND,ADMINID,TOURNAMENTDATACREATION) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
             st1 = conn.prepareStatement(query);
 
@@ -34,10 +34,8 @@ public class TournamentDAO implements ITournamentDAO {
             st1.setInt(5, tournament.getNumMaxPlayer());
             st1.setInt(6, tournament.getLevelRequirement());
             st1.setInt(7, tournament.getNumRound());
-            st1.setInt(8, tournament.getRoundTime());
-            st1.setInt(9, tournament.getNumFishRound());
-            st1.setInt(10, tournament.getAdminId());
-            st1.setDate(11, Date.valueOf(tournament.getTournamentDataCreation()));
+            st1.setInt(8, tournament.getAdminId());
+            st1.setDate(9, Date.valueOf(tournament.getTournamentDataCreation()));
 
 
             int affectedRows = st1.executeUpdate();
@@ -139,23 +137,22 @@ public class TournamentDAO implements ITournamentDAO {
             ResultSet rs = st1.executeQuery();
 
 
-            /*
+
             while (rs.next()) {
                 Tournament t = new Tournament(
                         rs.getString(1),
-                        StateTournament.valueOf(rs.getString(2)),
-                        rs.getDouble(3),
+                        rs.getInt(2),
+                        StateTournament.valueOf(rs.getString(3)),
                         rs.getDouble(4),
-                        rs.getInt(5),
+                        rs.getDouble(5),
                         rs.getInt(6),
                         rs.getInt(7),
                         rs.getInt(8),
-                        rs.getInt(9),
-                        rs.getInt(10),
-                        rs.getDate(11).toLocalDate()
+                        rs.getDate(9).toLocalDate(),
+                        rs.getInt(10)
                 );
                 tournaments.add(t);
-            }*/
+            }
 
 
         }catch (Exception e){
