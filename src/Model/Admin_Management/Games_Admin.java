@@ -10,4 +10,5 @@ public class Games_Admin extends Admin {
     public Games_Admin(String name, String surname, String email, String password, AdminRoles role) {
         super(name, surname, email, password, role);
     }
+
 }

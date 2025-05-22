@@ -1,18 +1,29 @@
 package Model.Games_Storage;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
  public class Game {
-    private int Game_id;
+    public int Game_id;
     private String name;
     private boolean active;
+    public LocalDate creationDate;
+// per la creazione
+     public Game(boolean active, String name) {
+         this.active = active;
+         this.name = name;
+         creationDate = LocalDate.now();
+     }
+// per la visualizzazione
+     public Game(boolean active, String name, int game_id, LocalDate creationDate) {
+         this.active = active;
+         this.name = name;
+         Game_id = game_id;
+         this.creationDate = creationDate;
+     }
 
-    public Game(String name) {
-        this.name = name;
-        this.active = true;
-    }
-    public int getId() { return Game_id; }
+     public int getId() { return Game_id; }
     public String getNome() { return name; }
     public boolean isActive() { return active; }
     public void setAttivo(boolean attivo) { this.active = active; }

@@ -45,6 +45,6 @@ public class Super_Admin extends Admin {
 
     private static String generatePassword(String name, String surname) {
         return name.toLowerCase() + "." + surname.toLowerCase() + "01@gmail.com";
-     //in caso ci siano due persone con stesso nome e cognome, devo ancora pensarci
+     //in caso siano due persone con stesso nome e cognome, devo ancora pensarci
     }
 }

@@ -79,12 +79,16 @@ public class AdminDAO implements IAdminDAO {
         PreparedStatement st;
         boolean outcome = true;
         try {
-            String query = "UPDATE ADMIN SET NAME = ?, EMAIL = ?, PASSWORD = ? WHERE ADMIN_ID = ?";
+            String query = "UPDATE ADMIN SET Admin_id= ?, NAME = ?, SURNAME = ?, EMAIL= ?, PASSWORD = ?, ROLE= ? , CREATIONDATE= ? WHERE Admin_id = ?";
             st = conn.prepareStatement(query);
-            st.setString(1, admin.getUsername());
-            st.setString(2, admin.getEmail());
-            st.setString(3, admin.getPassword());
-            st.setInt(4, admin.getAdminId());
+            st.setInt(1, admin.getAdmin_id());
+            st.setString(2, admin.getName());
+            st.setString(3, admin.getSurname());
+            st.setString(4, admin.getEmail());
+            st.setString(5, admin.getPassword());
+            st.setString(6, admin.getRole().name());
+            st.setDate(7, Date.valueOf(admin.getCreationDate()));
+
             int affectedRows = st.executeUpdate();
             if (affectedRows == 0) {
                 outcome = false;
@@ -116,7 +120,8 @@ public class AdminDAO implements IAdminDAO {
 
             }
         }catch (Exception e){e.printStackTrace();}
-            DBConnection.closeConnection(conn);
+
+        DBConnection.closeConnection(conn);
 
         return admin;
     }
@@ -133,10 +138,8 @@ public class AdminDAO implements IAdminDAO {
             rs = st.executeQuery(query);
             while (rs.next()) {
                 Admin admin = new Admin(
-                        rs.getInt("ADMIN_ID"),
-                        rs.getString("USERNAME"),
-                        rs.getString("EMAIL"),
-                        rs.getString("PASSWORD")
+                        rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4)
+                        , rs.getString(5), AdminRoles.valueOf(rs.getString(6)), rs.getDate(7).toLocalDate()
                 );
                 result.add(admin);
             }
