@@ -72,4 +72,78 @@ public class User {
                 default: throw new IllegalArgumentException("Lettera mese non valida: " + mese);
             }
         }
+
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public String getFiscal_Code() {
+        return Fiscal_Code;
+    }
+
+    public int getUser_id() {
+        return user_id;
+    }
+
+    public LocalDate getBirthday() {
+        return birthday;
+    }
+
+    public LocalDate getSubscription_date() {
+        return Subscription_date;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
+    public void setFiscal_Code(String fiscal_Code) {
+        Fiscal_Code = fiscal_Code;
+    }
+
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
+    }
+
+    public void setBirthday(LocalDate birthday) {
+        this.birthday = birthday;
+    }
+
+    public void setSubscription_date(LocalDate subscription_date) {
+        Subscription_date = subscription_date;
+    }
 }
+
