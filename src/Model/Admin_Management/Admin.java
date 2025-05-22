@@ -8,7 +8,7 @@ public class Admin {
     protected LocalDate CreationDate;
     protected AdminRoles role;
     private int Admin_id;
-
+// creazione
     public Admin(String name, String surname, String email, String password, AdminRoles role) {
         this.name = name;
         this.surname = surname;
@@ -17,6 +17,7 @@ public class Admin {
         this.role= role;
         CreationDate=LocalDate.now();
     }
+    //visualizzazione
 public Admin(int Admin_id, String name, String surname, String email, String password, AdminRoles role, LocalDate creationDate) {
         this.Admin_id = Admin_id;
         this.name = name;
@@ -25,6 +26,7 @@ public Admin(int Admin_id, String name, String surname, String email, String pas
         this.password = password;
         this.role= role;
         this.CreationDate=creationDate;
+
 
 }
     public boolean checkPassword(String pass)

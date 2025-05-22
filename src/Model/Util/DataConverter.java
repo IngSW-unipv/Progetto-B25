@@ -17,7 +17,7 @@ public class DataConverter {
         return time.format(itaformat);
     }
 
-    public static String joinstring(String... string) { //varargs
+    public static String joinstring(String... string) { //vara rgs
         StringBuilder rs = new StringBuilder();
         //string.length è il numero di stringhe, restituisce il numero totale di elementi contenuti nell'array di stringhe string
         for (int i = 0; i < string.length; i++) { // aggiunge ogni stringa passata come parametro
