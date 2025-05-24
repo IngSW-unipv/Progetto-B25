@@ -8,7 +8,7 @@ import java.util.List;
     public int Game_id;
     private String name;
     private boolean active;
-    public LocalDate creationDate;
+    public static LocalDate creationDate;
 // per la creazione
      public Game(boolean active, String name) {
          this.active = active;
@@ -23,66 +23,41 @@ import java.util.List;
          this.creationDate = creationDate;
      }
 
-     public int getId() { return Game_id; }
-    public String getNome() { return name; }
-    public boolean isActive() { return active; }
-    public void setAttivo(boolean attivo) { this.active = active; }
+     public boolean isActive() {
+         return active;
+     }
 
-    @Override
+     public void setActive(boolean active) {
+         this.active = active;
+     }
+
+     public static LocalDate getCreationDate() {
+         return creationDate;
+     }
+
+     public void setCreationDate(LocalDate creationDate) {
+         this.creationDate = creationDate;
+     }
+
+     public int getGame_id() {
+         return Game_id;
+     }
+
+     public void setGame_id(int game_id) {
+         Game_id = game_id;
+     }
+
+     public String getName() {
+         return name;
+     }
+
+     public void setName(String name) {
+         this.name = name;
+     }
+
+     @Override
     public String toString() {
         return "Game ID: " + Game_id + ", Nome: " + name + ", Stato: " + (active ? "Attivo" : "Rimosso");
     }
 }
-//    private List<Game> games;
-//    private static GamesManager instance;
-//
-//    private GamesManager() { games = new ArrayList<>(); }
-//
-//    public static GamesManager getInstance() {
-//        if(instance == null)
-//            instance = new GamesManager();
-//        return instance;
-//    }
-//
-//    public void addGame(String nome) { games.add(new Game(nome)); }
-//
-//    public boolean removeGame(int id) {
-//        Game game = findGameById(id);
-//        if(game != null && game.isActive()){
-//            game.setAttivo(false);
-//            return true;
-//        }
-//        return false;
-//    }
-//
-//    public boolean restoreGame(int id) {
-//        Game game = findGameById(id);
-//        if(game != null && !game.isActive()){
-//            game.setAttivo(true);
-//            return true;
-//        }
-//        return false;
-//    }
-//
-//    public List<Game> getActiveGames() {
-//        List<Game> active = new ArrayList<>();
-//        for(Game g : games)
-//            if(g.isActive())
-//                active.add(g);
-//        return active;
-//    }
-//
-//    public List<Game> getRemovedGames() {
-//        List<Game> removed = new ArrayList<>();
-//        for(Game g : games)
-//            if(!g.isActive())
-//                removed.add(g);
-//        return removed;
-//    }
-//
-//    private Game findGameById(int id) {
-//        for(Game g : games)
-//            if(g.getId() == id)
-//                return g;
-//        return null;
-//    }
+

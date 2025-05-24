@@ -15,17 +15,17 @@ import java.util.ArrayList;
             PreparedStatement st;
             boolean outcome = true;
             try {
-                String query = "INSERT INTO GAMES (NAME, ACTIVE, CREATION_DATE) VALUES (?, ?, ?)";
+                String query = "INSERT INTO GAMES (ACTIVE, NAME, CREATIONDATE) VALUES (?, ?, ?)";
                 st = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-                st.setString(1, game.getNome());
-                st.setBoolean(2, game.isActive());
-                st.setDate(3, Date.valueOf(game.creationDate));
-
+                st.setBoolean(1, game.isActive());
+                st.setString(2, game.getName());
+                st.setDate(3, Date.valueOf(Game.getCreationDate()));;
                 int affectedRows = st.executeUpdate();
                 if (affectedRows > 0) {
                     try (ResultSet generatedKeys = st.getGeneratedKeys()) {
                         if (generatedKeys.next()) {
-                            game.Game_id = generatedKeys.getInt(1);
+                            int generatedId = generatedKeys.getInt(1);
+                            game.setGame_id(generatedId);
                         }
                     }
                 } else {
@@ -48,7 +48,7 @@ import java.util.ArrayList;
             try {
                 String query = "DELETE FROM GAMES WHERE GAME_ID = ?";
                 st = conn.prepareStatement(query);
-                st.setInt(1, game.getId());
+                st.setInt(1, game.getGame_id());
                 int affectedRows = st.executeUpdate();
                 if (affectedRows == 0) {
                     outcome = false;
@@ -68,11 +68,12 @@ import java.util.ArrayList;
             PreparedStatement st;
             boolean outcome = true;
             try {
-                String query = "UPDATE GAMES SET NAME = ?, ACTIVE = ? WHERE GAME_ID = ?";
+                String query = "UPDATE GAMES SET Active = ?, NAme = ? , Game_id= ?, CreationDate= ?, WHERE GAME_ID = ?";
                 st = conn.prepareStatement(query);
-                st.setString(1, game.getNome());
-                st.setBoolean(2, game.isActive());
-                st.setInt(3, game.getId());
+                st.setBoolean(1, game.isActive());
+                st.setString(2, game.getName());
+                st.setInt(3, game.getGame_id());
+                st.setDate(4, Date.valueOf(Game.getCreationDate()));
                 int affectedRows = st.executeUpdate();
                 if (affectedRows == 0) {
                     outcome = false;
