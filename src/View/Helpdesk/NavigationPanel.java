@@ -2,28 +2,32 @@ package View.Helpdesk;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.HashMap;
+import java.util.Map;
 
 public class NavigationPanel extends JPanel {
-    private JButton btnHome;
-    private JButton btnCreateTicket;
-    private JButton btnSelectTicket;
 
-    public NavigationPanel() {
+    private Map<String, JButton> button;
+
+    public NavigationPanel(String... label) {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setBackground(new Color(40, 40, 40));
         setPreferredSize(new Dimension(180, 600));
 
-        btnHome = createNavButton("Home");
-        btnCreateTicket = createNavButton("Crea Ticket");
-        btnSelectTicket = createNavButton("Seleziona Ticket");
+        button = new HashMap<>();
 
         add(Box.createVerticalGlue());
 
-        add(btnHome);
-        add(Box.createVerticalStrut(10));
-        add(btnCreateTicket);
-        add(Box.createVerticalStrut(10));
-        add(btnSelectTicket);
+        for (int i = 0; i < label.length; i++) {
+
+            JButton b =  createNavButton(label[i]);
+            button.put(label[i], b);
+            add(b);
+            if (i < label.length - 1) {
+                add(Box.createVerticalStrut(10));
+            }
+
+        }
 
         add(Box.createVerticalGlue());
     }
@@ -35,9 +39,10 @@ public class NavigationPanel extends JPanel {
         return button;
     }
 
-    // Getters per controller o MainView
-    public JButton getBtnHome() { return btnHome; }
-    public JButton getBtnCreateTicket() { return btnCreateTicket; }
-    public JButton getBtnSelectTicket() { return btnSelectTicket; }
+    public JButton getButton(String label) {
+        return button.get(label);
+    }
+
+
 
 }
