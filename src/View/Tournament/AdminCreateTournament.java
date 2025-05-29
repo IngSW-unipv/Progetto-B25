@@ -54,6 +54,7 @@ public class AdminCreateTournament extends JPanel{
 
         btnCreateTournament = new JButton("Crea torneo");
 
+
         //TextField e ComboBox
         nameTournamentField = new JTextField(10);
         entryFeeField = new JTextField(10);
