@@ -6,7 +6,7 @@ import Model.Wallet_Payment.Transaction;
 
 import java.sql.*;
 
-public class TransactionDao implements ITransactionDAO {
+public class TransactionDAO implements ITransactionDAO {
     private Connection conn;
 
     public boolean createTransaction(Transaction transaction) {
