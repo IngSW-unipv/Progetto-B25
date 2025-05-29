@@ -12,7 +12,7 @@ public class UserDAO implements IUserDAO {
         conn= DBConnection.startConnection(conn);
         PreparedStatement st1; //chiedere a lore
 
-        boolean status=true;
+        boolean outcome=true;
         try{
             String query="insert into user(username, password, email, name, surname, Fiscal_Code, birthday, Subcription_date ) values(?,?,?,?,?,?,?, ?)";
             st1=conn.prepareStatement(query);
@@ -36,22 +36,22 @@ public class UserDAO implements IUserDAO {
                     }
                 }
             }else {
-                status=false;
+                outcome=false;
             }
         }catch (Exception e){
             e.printStackTrace();
-            status=false;
+            outcome=false;
         }
 
         DBConnection.closeConnection(conn);
-        return status;
+        return outcome;
     }
 
 
-    public boolean delateUser(int user_id) {
+    public boolean deleteUser(int user_id) {
         conn= DBConnection.startConnection(conn);
         PreparedStatement st1;
-        boolean status=true;
+        boolean outcome=true;
 
         try{
             String query="delete from user where user_id=?";
@@ -59,14 +59,14 @@ public class UserDAO implements IUserDAO {
             st1.setInt(1, user_id);
             int affectedRows=st1.executeUpdate();
             if(affectedRows==0){
-                status=false;
+                outcome=false;
             }
         }catch (Exception e){
             e.printStackTrace();
-            status=false;
+            outcome=false;
         }
         DBConnection.closeConnection(conn);
-        return status;
+        return outcome;
 
     }
 }

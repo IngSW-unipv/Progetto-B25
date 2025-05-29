@@ -10,7 +10,7 @@ public class Transaction {
     private int wallett_id;
     private Payment_Type transaction_type;
     private Payment_Method payment_method;
-    private String amount;
+    private int amount;
     private LocalDate card_expiry;
     private LocalDate date_transaction;
     private LocalTime time_transaction;
@@ -19,7 +19,7 @@ public class Transaction {
     private int card_last4;
     private int Admin_id;
 //creazione
-    public Transaction(int wallett_id, Payment_Type transaction_type, Payment_Method payment_method,LocalDate card_expiry, String amount, Double pre_currency, Double post_currency, int card_last4, int Admin_id) {
+    public Transaction(int wallett_id, Payment_Type transaction_type, Payment_Method payment_method,LocalDate card_expiry, int amount, Double pre_currency, Double post_currency, int card_last4, int Admin_id) {
         this.wallett_id = wallett_id;
         this.transaction_type = transaction_type;
         this.payment_method = payment_method;
@@ -34,7 +34,7 @@ public class Transaction {
     }
     //visualizzazione
 
-    public Transaction(int wallett_id, Payment_Type transaction_type, Payment_Method payment_method, String amount, LocalDate card_expiry, int transaction_id, LocalDate date_transaction, LocalDateTime time_transaction, Double post_currency, Double pre_currency, int card_last4, int Admin_id) {
+    public Transaction(int wallett_id, Payment_Type transaction_type, Payment_Method payment_method, int amount, LocalDate card_expiry, int transaction_id, LocalDate date_transaction, LocalDateTime time_transaction, Double post_currency, Double pre_currency, int card_last4, int Admin_id) {
         this.wallett_id = wallett_id;
         this.transaction_type = transaction_type;
         this.payment_method = payment_method;
@@ -45,5 +45,101 @@ public class Transaction {
         this.pre_currency = pre_currency;
         this.card_last4 = card_last4;
         this.Admin_id = Admin_id;
+    }
+
+    public int getTransaction_id() {
+        return transaction_id;
+    }
+
+    public int getWallett_id() {
+        return wallett_id;
+    }
+
+    public Payment_Type getTransaction_type() {
+        return transaction_type;
+    }
+
+    public Payment_Method getPayment_method() {
+        return payment_method;
+    }
+
+    public int getAmount() {
+        return amount;
+    }
+
+    public LocalDate getCard_expiry() {
+        return card_expiry;
+    }
+
+    public LocalDate getDate_transaction() {
+        return date_transaction;
+    }
+
+    public LocalTime getTime_transaction() {
+        return time_transaction;
+    }
+
+    public Double getPre_currency() {
+        return pre_currency;
+    }
+
+    public Double getPost_currency() {
+        return post_currency;
+    }
+
+    public int getCard_last4() {
+        return card_last4;
+    }
+
+    public int getAdmin_id() {
+        return Admin_id;
+    }
+
+    public void setTransaction_id(int transaction_id) {
+        this.transaction_id = transaction_id;
+    }
+
+    public void setWallett_id(int wallett_id) {
+        this.wallett_id = wallett_id;
+    }
+
+    public void setTransaction_type(Payment_Type transaction_type) {
+        this.transaction_type = transaction_type;
+    }
+
+    public void setPayment_method(Payment_Method payment_method) {
+        this.payment_method = payment_method;
+    }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
+    }
+
+    public void setCard_expiry(LocalDate card_expiry) {
+        this.card_expiry = card_expiry;
+    }
+
+    public void setDate_transaction(LocalDate date_transaction) {
+        this.date_transaction = date_transaction;
+    }
+
+    public void setTime_transaction(LocalTime time_transaction) {
+        this.time_transaction = time_transaction;
+    }
+
+    public void setPre_currency(Double pre_currency) {
+        this.pre_currency = pre_currency;
+    }
+
+    public void setPost_currency(Double post_currency) {
+        this.post_currency = post_currency;
+    }
+
+    public void setCard_last4(int card_last4) {
+        this.card_last4 = card_last4;
+    }
+
+    public void setAdmin_id(int admin_id) {
+        Admin_id = admin_id;
     }
 }
