@@ -43,6 +43,4 @@ public class NavigationPanel extends JPanel {
         return button.get(label);
     }
 
-
-
 }
