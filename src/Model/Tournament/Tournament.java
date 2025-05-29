@@ -13,11 +13,19 @@ public class Tournament {
     private int numRound;
     private int adminId;
     private LocalDate tournamentDataCreation;
+    //AGGIUNGERE DATA INIZIO E ORARIO TORNEO
+    //setDateTime
+
 
     /**
      *
      * @param adminId
      * @param tournamentName
+     * @param entryFee
+     * @param prizePool
+     * @param numMaxPlayer
+     * @param levelRequirement
+     * @param numRound
      */
     public Tournament(int adminId, String tournamentName, double entryFee, double prizePool, int numMaxPlayer, int levelRequirement, int numRound) {
         this.adminId = adminId;
@@ -44,6 +52,8 @@ public class Tournament {
      * @param numMaxPlayer
      * @param levelRequirement
      * @param numRound
+     * @param tournamentDataCreation
+     * @param adminId
      */
     public Tournament(String tournamentName, int tournamentId, StateTournament tournamentStatus, double entryFee, double prizePool, int numMaxPlayer, int levelRequirement, int numRound, LocalDate tournamentDataCreation, int adminId) {
         this.tournamentName = tournamentName;
