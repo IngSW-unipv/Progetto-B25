@@ -13,8 +13,8 @@ public class Super_Admin extends Admin {
     }
 
     public static Admin createAdmin(String name, String surname, String role) {
-            String email = generateEmail();
-            String password = generatePassword(name, surname);
+            String password= generatePassword();
+            String email = generateEmail(name, surname);
             switch(role){
                 case "SUPER_ADMIN":
                     return new Super_Admin( name,surname, email,  password, AdminRoles.SUPER_ADMIN);
@@ -31,7 +31,7 @@ public class Super_Admin extends Admin {
 
     }
 
-    private static String generateEmail() {
+    private static String generatePassword() {
         String alphabet= "1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()-_=+";
         int alphabethLength = alphabet.length();
         String password = "";
@@ -43,7 +43,7 @@ public class Super_Admin extends Admin {
         return password;
     }
 
-    private static String generatePassword(String name, String surname) {
+    private static String generateEmail(String name, String surname) {
         return name.toLowerCase() + "." + surname.toLowerCase() + "01@gmail.com";
      //in caso siano due persone con stesso nome e cognome, devo ancora pensarci
     }
