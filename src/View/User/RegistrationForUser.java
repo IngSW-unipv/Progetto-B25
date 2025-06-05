@@ -3,9 +3,9 @@ package View.User;
 import javax.swing.*;
 import java.awt.*;
 
-public class Registration extends JPanel {
+public class RegistrationForUser extends JPanel {
     JButton registerButton = new JButton("Registrazione");
-    public Registration() {
+    public RegistrationForUser() {
         setLayout(new BorderLayout());
         setBackground(Color.WHITE);
 
