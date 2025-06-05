@@ -18,14 +18,13 @@ public class RegistrationForAdmin extends JPanel {
 
 
     public RegistrationForAdmin() {
-        setLayout(new BorderLayout());
-        setBackground(Color.BLUE);
+
         JLabel titleLabel = new JLabel("Admin Registrazione");
         add(titleLabel, BorderLayout.NORTH);
 
         JPanel registrationPanel = new JPanel();
         registrationPanel.setBackground(Color.lightGray);
-        registrationPanel.setLayout(new GridLayout(7,2,10,10));
+        registrationPanel.setLayout(new GridLayout(7,1,10,10));
         add(registrationPanel, BorderLayout.CENTER);
 
         registrationPanel.add(nameLabel);
