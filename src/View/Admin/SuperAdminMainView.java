@@ -16,5 +16,5 @@ public class SuperAdminMainView extends JFrame{
         setBackground(Color.WHITE);
         add(NavigationBar);
     }
-    public static void showDefaultView(){};
+
 }
