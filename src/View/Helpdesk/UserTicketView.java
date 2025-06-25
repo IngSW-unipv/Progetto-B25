@@ -11,7 +11,7 @@ public class UserTicketView extends JFrame {
 
     private NavigationPanel navPanel;
     private InputPanel createTicketPanel;
-    private SelectTicketPanel selectTicketPanel;
+    private TicketListPanel selectTicketPanel;
     private ChatPanel chatPanel;
 
     public UserTicketView(String loggedName, boolean isAdmin) {
@@ -35,7 +35,7 @@ public class UserTicketView extends JFrame {
 
         // Inizializza pannelli
         createTicketPanel = new InputPanel("inserisci il titolo del tuo ticket", "Crea", "Indietro");
-        selectTicketPanel = new SelectTicketPanel("Seleziona il tuo ticket", "Seleziona", "Indietro");
+        selectTicketPanel = new TicketListPanel();
         chatPanel = new ChatPanel();
         chatPanel.setLoggedName(loggedName);
 
@@ -53,7 +53,7 @@ public class UserTicketView extends JFrame {
         // --- Listener bottoni nav bar ---
       //  navPanel. getButton("Home").addActionListener(e -> showHomePanel());
         navPanel. getButton("Crea Ticket").addActionListener(e -> showCreateTicketPanel());
-        navPanel. getButton("Seleziona Ticket").addActionListener(e -> showSelectTicketPanel(new String[]{})); // placeholder
+        navPanel. getButton("Seleziona Ticket").addActionListener(e -> showSelectTicketPanel()); // placeholder
 
     }
 
@@ -65,9 +65,8 @@ public class UserTicketView extends JFrame {
         }
     }
 
-    public void showSelectTicketPanel(String[] ticketTitles) {
+    public void showSelectTicketPanel() {
         if (!currentPanel.equals("SelectTicket")) {
-            selectTicketPanel.setTicketTitles(ticketTitles);
             cardLayout.show(mainPanel, "SelectTicket");
             currentPanel = "SelectTicket";
         }
@@ -91,7 +90,7 @@ public class UserTicketView extends JFrame {
         return createTicketPanel;
     }
 
-    public SelectTicketPanel getSelectTicketPanel() {
+    public TicketListPanel getSelectTicketPanel() {
         return selectTicketPanel;
     }
 

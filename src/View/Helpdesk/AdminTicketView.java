@@ -12,8 +12,8 @@ public class AdminTicketView extends JFrame {
     private NavigationPanel navPanel;
     private InputPanel findUserPanel;
     private TransactionPanel transactionPanel;
-    private SelectTicketPanel handleSelectPanel;
-    private SelectTicketPanel viewSelectPanel;
+    private TicketListPanel handleSelectPanel;
+    private TicketListPanel viewSelectPanel;
     private ChatPanel chatPanel;
 
     public AdminTicketView(String loggedName, boolean isAdmin) {
@@ -38,8 +38,8 @@ public class AdminTicketView extends JFrame {
         // Inizializza pannelli
         findUserPanel = new InputPanel("Cerca utente per nome_utente", "Cerca", "Indietro");
         transactionPanel = new TransactionPanel();
-        handleSelectPanel = new SelectTicketPanel("Prendi a carico un ticket", "Seleziona", "Indietro");
-        viewSelectPanel = new SelectTicketPanel("Seleziona un ticket", "Seleziona", "Indietro");
+        handleSelectPanel = new TicketListPanel();
+        viewSelectPanel = new TicketListPanel();
         chatPanel = new ChatPanel();
         chatPanel.setLoggedName(loggedName);
 
@@ -114,11 +114,11 @@ public class AdminTicketView extends JFrame {
         return transactionPanel;
     }
 
-    public SelectTicketPanel getHandleSelectPanel() {
+    public TicketListPanel getHandleSelectPanel() {
         return handleSelectPanel;
     }
 
-    public SelectTicketPanel getViewSelectPanel() {
+    public TicketListPanel getViewSelectPanel() {
         return viewSelectPanel;
     }
 

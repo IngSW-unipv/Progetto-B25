@@ -5,7 +5,7 @@ import Model.Helpdesk.StateTicket;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Objects;
+
 
 public class ChatPanel extends JPanel {
 
@@ -34,6 +34,8 @@ public class ChatPanel extends JPanel {
         messagePanel = new JPanel();
         messagePanel.setLayout(new BoxLayout(messagePanel, BoxLayout.Y_AXIS));
         scrollPane = new JScrollPane(messagePanel);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        scrollPane.getVerticalScrollBar().setUnitIncrement(16);
         add(scrollPane, BorderLayout.CENTER);
 
 
