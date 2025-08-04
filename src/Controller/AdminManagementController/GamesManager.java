@@ -6,10 +6,10 @@ import java.util.List;
 
 public class GamesManager {
 
-    public void addGame(String name){};
-    public boolean removeGame(int Game_id){};
-    public boolean restoreGame(int Game_id){};
-    public List<Game> getActiveGames(){};
-    public List<Game> getRemovedGames(){};
+//    public void addGame(String name){};
+//    public boolean removeGame(int Game_id){};
+//    public boolean restoreGame(int Game_id){};
+//    public List<Game> getActiveGames(){};
+//    public List<Game> getRemovedGames(){};
 
 }
