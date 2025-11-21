@@ -13,7 +13,8 @@ class UserSession extends Session {
         return false;
     }
 
-    public String getUsername() {
+    @Override
+    public String getIdentifier()  {
         return username;
     }
 }

@@ -1,8 +1,6 @@
 package View.Helpdesk;
 
 
-import Model.Helpdesk.StateTicket;
-
 import javax.swing.*;
 import java.awt.*;
 
@@ -23,9 +21,8 @@ public class ChatPanel extends JPanel {
     private boolean isAdmin;
     private int currentTicketId;
 
-    public ChatPanel(/*String loggedName, boolean isAdmin*/) {
-        //this.loggedName = loggedName;
-        //this.isAdmin = isAdmin;
+    public ChatPanel() {
+
         setLayout(new BorderLayout());
 
         chatTitleLabel = new JLabel("Chat", SwingConstants.CENTER);

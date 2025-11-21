@@ -13,7 +13,8 @@ class AdminSession extends Session {
         return true;
     }
 
-    public String getEmail() {
+    @Override
+    public String getIdentifier()  {
         return email;
     }
 }

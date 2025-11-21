@@ -14,7 +14,7 @@ public class UserTicketView extends JFrame {
     private TicketListPanel selectTicketPanel;
     private ChatPanel chatPanel;
 
-    public UserTicketView(String loggedName, boolean isAdmin) {
+    public UserTicketView() {
         currentPanel = "";
 
         setTitle("Servizio Helpdesk");
@@ -26,7 +26,7 @@ public class UserTicketView extends JFrame {
         getContentPane().setLayout(new BorderLayout());
 
         // --- Barra di navigazione ---
-        navPanel = new NavigationPanel("Home","Crea Ticket","Seleziona Ticket");
+        navPanel = new NavigationPanel("Logout","Crea Ticket","Seleziona Ticket");
         getContentPane().add(navPanel, BorderLayout.WEST);
 
         // --- Pannello centrale con CardLayout ---
@@ -37,7 +37,6 @@ public class UserTicketView extends JFrame {
         createTicketPanel = new InputPanel("inserisci il titolo del tuo ticket", "Crea", "Indietro");
         selectTicketPanel = new TicketListPanel();
         chatPanel = new ChatPanel();
-        chatPanel.setLoggedName(loggedName);
 
         // Aggiungi i pannelli alla CardLayout
         mainPanel.add(createTicketPanel, "CreateTicket");
@@ -49,11 +48,6 @@ public class UserTicketView extends JFrame {
         // Mostra Home all'avvio
         currentPanel = "CreateTicket";
         cardLayout.show(mainPanel, "CreateTicket");
-
-        // --- Listener bottoni nav bar ---
-      //  navPanel. getButton("Home").addActionListener(e -> showHomePanel());
-        navPanel. getButton("Crea Ticket").addActionListener(e -> showCreateTicketPanel());
-        navPanel. getButton("Seleziona Ticket").addActionListener(e -> showSelectTicketPanel()); // placeholder
 
     }
 

@@ -36,5 +36,7 @@ public abstract class Session {
 
     public abstract boolean isAdmin();
 
+    public abstract String getIdentifier();
+
     // I metodi specifici sono implementati nelle classi derivate
 }
