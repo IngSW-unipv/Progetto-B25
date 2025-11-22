@@ -5,16 +5,20 @@ import Dao.Helpdesk.TicketDAO;
 import Model.Helpdesk.Message;
 import Model.Helpdesk.StateTicket;
 import Model.Helpdesk.Ticket;
+import Model.Util.DataConverter;
 import Model.Util.Session;
-import Model.Util.UserSession;
 import View.Helpdesk.TicketPanel;
 import View.Helpdesk.UserTicketView;
+
+import java.util.List;
 
 
 public class TicketUserController {
     private TicketDAO ticketDAO;
     private MessageDAO messageDAO;
     private UserTicketView userTicketView;
+    private boolean isAdmin;
+    private String identifier;
 
     public TicketUserController(TicketDAO ticketDAO, MessageDAO messageDAO, UserTicketView userTicketView) {
         this.ticketDAO = ticketDAO;
@@ -22,8 +26,10 @@ public class TicketUserController {
         this.userTicketView = userTicketView;
 
         if(!Session.getInstance().isAdmin()){
-            userTicketView.getChatPanel().setIsAdmin(Session.getInstance().isAdmin());
-            userTicketView.getChatPanel().setLoggedName(Session.getInstance().getIdentifier());
+            isAdmin=Session.getInstance().isAdmin();
+            identifier=Session.getInstance().getIdentifier();
+            userTicketView.getChatPanel().setIsAdmin(isAdmin);
+            userTicketView.getChatPanel().setLoggedName(identifier);
         }
         setupListeners();
     }
@@ -38,9 +44,9 @@ public class TicketUserController {
         userTicketView.getCreateTicketPanel().getConfirmFindButton().addActionListener(e -> {
             String title = userTicketView.getCreateTicketPanel().getInput();
             if (title != null && !title.isEmpty()) {
-                StateTicket state=StateTicket.APERTO;
-               // int id=ticketDAO.saveTicket(new Ticket(title,state));
-                openChat(id, title,state.name());
+                Ticket ticket= new Ticket(title,userid);
+                ticketDAO.createTicket(ticket);
+                openChat(ticket.getTicket_id(), title,ticket.getState().name());
             } else {
                 //userTicketView.showHomePanel();
             }
@@ -58,15 +64,15 @@ public class TicketUserController {
 
         //lISTA TICKET: selzione ticket
         userTicketView.getNavPanel().getButton("Seleziona Ticket").addActionListener(e -> {
-          /*  for (Ticket ticket : ticketDAO.getAllTickets()) {
+            for (Ticket ticket : ticketDAO.getAllTickets()) {
                 TicketPanel panel = userTicketView.getSelectTicketPanel().loadTicket(
                         ticket.getTitle(),
                         ticket.getState().name(),
                         "Apri"
                 );
 
-                panel.getButton().addActionListener(e -> openChat(ticket.getId(), ticket.getTitle(), ticket.getState.name()));
-           }*/
+                panel.getButton().addActionListener(ev -> openChat(ticket.getTicket_id(), ticket.getTitle(), ticket.getState().name()));
+           }
         });
 
 
@@ -75,9 +81,11 @@ public class TicketUserController {
         userTicketView.getChatPanel().getSendButton().addActionListener(e -> {
             String content = userTicketView.getChatPanel().getInputText();
             if (!content.isEmpty()) {
-                Message message = new Message(userTicketView.getChatPanel().getLoggedUser(), content);
-                messageDAO.saveMessage(userTicketView.getChatPanel().getCurrentTicketId(), message);
-                userTicketView.getChatPanel().displayMessage(message.getText(), message.getSender(), message.getMessage_date());
+                Message message = new Message(content,userTicketView.getChatPanel().getCurrentTicketId(),0);
+                messageDAO.createMessage(message);
+                String formatDateTime= DataConverter.joinstring(DataConverter.dateconverter(message.getMessage_date()),
+                                DataConverter.timeconverter(message.getMessage_time()));
+                userTicketView.getChatPanel().displayMessage(message.getText(), identifier, formatDateTime);
                 userTicketView.getChatPanel().clearInput();
             }
         });
@@ -98,10 +106,12 @@ public class TicketUserController {
     }
 
     private void openChat(int ticketId, String title, String status) {
-      //  List<Message> messages = messageDAO.getMessagesByTicketId(ticketId);
+        List<Message> messages = messageDAO.selectByTicketId(ticketId);
         userTicketView.showChatPanel(title, ticketId, status);
         for (Message message : messages) {
-            userTicketView.getChatPanel().displayMessage(message.getText(), message.getSender(), message.getMessage_date());
+            String formatDateTime= DataConverter.joinstring(DataConverter.dateconverter(message.getMessage_date()),
+                    DataConverter.timeconverter(message.getMessage_time()));
+            userTicketView.getChatPanel().displayMessage(message.getText(), message.getSender(), formatDateTime);
         }
 
     }

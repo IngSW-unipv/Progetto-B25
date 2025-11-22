@@ -3,12 +3,12 @@ package Dao.Helpdesk;
 
 import Model.Helpdesk.StateTicket;
 import Model.Helpdesk.Ticket;
+import Model.Tournament.StateTournament;
+import Model.Tournament.Tournament;
 import Model.Util.DBConnection;
 
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class TicketDAO implements ITicketDAO{
@@ -83,8 +83,53 @@ public class TicketDAO implements ITicketDAO{
 
     }
 
+    public ArrayList<Ticket> getAllTickets(){
 
-    public Ticket selectById(int ticketId){
+        conn=DBConnection.startConnection(conn);
+        PreparedStatement st1;
+        ResultSet rs1;
+        ArrayList<Ticket> tickets = new ArrayList<>();
+
+    try
+    {
+        String query = "SELECT * FROM TICKET " +
+                "                ORDER BY CASE STATO "  +
+                "                WHEN 'IN_CORSO' THEN 1"  +
+                "                WHEN 'APERTO' THEN 2 "+
+                "                WHEN 'CHIUSO' THEN 3 "+
+                "                END";
+
+        st1 = conn.prepareStatement(query);
+
+        rs1 = st1.executeQuery();
+
+
+        while (rs1.next()) {
+
+            Ticket t = new Ticket(
+                    rs1.getInt(1),
+                    rs1.getString(2),
+                    StateTicket.valueOf(rs1.getString(3)),
+                    rs1.getInt(4),
+                    rs1.getDate(5).toLocalDate()
+            );
+            tickets.add(t);
+        }
+
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+        DBConnection.closeConnection(conn);
+        return tickets;
+    }
+
+
+
+
+
+
+  /*  public Ticket selectById(int ticketId){
 
         Ticket t=null;
 
@@ -112,7 +157,7 @@ public class TicketDAO implements ITicketDAO{
         DBConnection.closeConnection(conn);
         return t;
 
-    }
+    }*/
 
 
 }

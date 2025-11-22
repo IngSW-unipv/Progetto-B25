@@ -12,6 +12,7 @@ public class Message {
     private int admin_id;
     private LocalTime message_time;
     private LocalDate message_date;
+    private String sender;
 
     /**
      * costruttore che si usa nel momento della creazione di un nuovo oggetto Message all'interno del db
@@ -140,5 +141,13 @@ public class Message {
      */
     public void setMessage_date(LocalDate message_date) {
         this.message_date = message_date;
+    }
+
+    public String getSender() {
+        return sender;
+    }
+
+    public void setSender(String sender) {
+        this.sender = sender;
     }
 }
