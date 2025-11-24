@@ -34,7 +34,7 @@ public class UserTicketView extends JFrame {
         mainPanel = new JPanel(cardLayout);
 
         // Inizializza pannelli
-        createTicketPanel = new InputPanel("inserisci il titolo del tuo ticket", "Crea", "Indietro");
+        createTicketPanel = new InputPanel("inserisci il titolo del tuo ticket", "Crea");
         selectTicketPanel = new TicketListPanel();
         chatPanel = new ChatPanel();
 

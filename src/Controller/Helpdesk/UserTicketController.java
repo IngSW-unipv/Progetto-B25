@@ -3,24 +3,23 @@ package Controller.Helpdesk;
 import Dao.Helpdesk.MessageDAO;
 import Dao.Helpdesk.TicketDAO;
 import Model.Helpdesk.Message;
-import Model.Helpdesk.StateTicket;
 import Model.Helpdesk.Ticket;
 import Model.Util.DataConverter;
 import Model.Util.Session;
 import View.Helpdesk.TicketPanel;
 import View.Helpdesk.UserTicketView;
+import java.util.ArrayList;
 
-import java.util.List;
 
 
-public class TicketUserController {
+public class UserTicketController {
     private TicketDAO ticketDAO;
     private MessageDAO messageDAO;
     private UserTicketView userTicketView;
     private boolean isAdmin;
     private String identifier;
 
-    public TicketUserController(TicketDAO ticketDAO, MessageDAO messageDAO, UserTicketView userTicketView) {
+    public UserTicketController(TicketDAO ticketDAO, MessageDAO messageDAO, UserTicketView userTicketView) {
         this.ticketDAO = ticketDAO;
         this.messageDAO = messageDAO;
         this.userTicketView = userTicketView;
@@ -44,7 +43,7 @@ public class TicketUserController {
         userTicketView.getCreateTicketPanel().getConfirmFindButton().addActionListener(e -> {
             String title = userTicketView.getCreateTicketPanel().getInput();
             if (title != null && !title.isEmpty()) {
-                Ticket ticket= new Ticket(title,userid);
+                Ticket ticket= new Ticket(title,userId);
                 ticketDAO.createTicket(ticket);
                 openChat(ticket.getTicket_id(), title,ticket.getState().name());
             } else {
@@ -52,19 +51,11 @@ public class TicketUserController {
             }
         });
 
-        // CREA TICKET: annulla creazione
-        userTicketView.getCreateTicketPanel().getCancelFindButton().addActionListener(e ->
-                userTicketView.showCreateTicketPanel()
-        );
-
-        // HOME: visualizza lista ticket
-        userTicketView.getNavPanel().getButton("Seleziona Ticket").addActionListener(e ->
-                userTicketView.showSelectTicketPanel()
-        );
 
         //lISTA TICKET: selzione ticket
         userTicketView.getNavPanel().getButton("Seleziona Ticket").addActionListener(e -> {
-            for (Ticket ticket : ticketDAO.getAllTickets()) {
+            userTicketView.showSelectTicketPanel();
+            for (Ticket ticket : ticketDAO.selectByUserId(userId)) {
                 TicketPanel panel = userTicketView.getSelectTicketPanel().loadTicket(
                         ticket.getTitle(),
                         ticket.getState().name(),
@@ -91,11 +82,6 @@ public class TicketUserController {
         });
 
 
-        // CHAT: torna a lISTA TICKET
-        userTicketView.getChatPanel().getBackButton().addActionListener(e ->
-                //cambio stato ticket (dao)
-                userTicketView.showSelectTicketPanel()
-        );
 
         /* HOME: logout
         userTicketView.getNavPanel().getButton("Logout").addActionListener(e ->
@@ -106,7 +92,7 @@ public class TicketUserController {
     }
 
     private void openChat(int ticketId, String title, String status) {
-        List<Message> messages = messageDAO.selectByTicketId(ticketId);
+        ArrayList<Message> messages = messageDAO.selectByTicketId(ticketId);
         userTicketView.showChatPanel(title, ticketId, status);
         for (Message message : messages) {
             String formatDateTime= DataConverter.joinstring(DataConverter.dateconverter(message.getMessage_date()),

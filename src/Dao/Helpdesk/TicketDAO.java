@@ -83,45 +83,134 @@ public class TicketDAO implements ITicketDAO{
 
     }
 
-    public ArrayList<Ticket> getAllTickets(){
+    public ArrayList<Ticket> selectByUserId(int userId){
+
+        conn = DBConnection.startConnection(conn);
+        PreparedStatement st1;
+        ResultSet rs1;
+        ArrayList<Ticket> tickets = new ArrayList<>();
+
+        try
+        {
+            String query = "SELECT * FROM TICKET WHERE USER_ID = ? " +
+                    " ORDER BY CASE STATO " +
+                    " WHEN 'IN_CORSO' THEN 1 " +
+                    " WHEN 'APERTO' THEN 2 " +
+                    " WHEN 'CHIUSO' THEN 3 " +
+                    " END";
+
+            st1 = conn.prepareStatement(query);
+            st1.setInt(1, userId);
+
+
+            rs1 = st1.executeQuery();
+
+            while (rs1.next()) {
+
+                Ticket t = new Ticket(
+                        rs1.getInt(1),
+                        rs1.getString(2),
+                        StateTicket.valueOf(rs1.getString(3)),
+                        rs1.getInt(4),
+                        rs1.getDate(5).toLocalDate()
+                );
+                tickets.add(t);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        DBConnection.closeConnection(conn);
+        return tickets;
+    }
+
+
+    public ArrayList<Ticket> selectOpenTicket(){
 
         conn=DBConnection.startConnection(conn);
         PreparedStatement st1;
         ResultSet rs1;
         ArrayList<Ticket> tickets = new ArrayList<>();
 
-    try
-    {
-        String query = "SELECT * FROM TICKET " +
-                "                ORDER BY CASE STATO "  +
-                "                WHEN 'IN_CORSO' THEN 1"  +
-                "                WHEN 'APERTO' THEN 2 "+
-                "                WHEN 'CHIUSO' THEN 3 "+
-                "                END";
+        try
+        {
+            String query = "SELECT * FROM TICKET WHERE STATO=?";
 
-        st1 = conn.prepareStatement(query);
+            st1 = conn.prepareStatement(query);
+            st1.setString(1, StateTicket.APERTO.name());
 
-        rs1 = st1.executeQuery();
+            rs1 = st1.executeQuery();
 
 
-        while (rs1.next()) {
+            while (rs1.next()) {
 
-            Ticket t = new Ticket(
-                    rs1.getInt(1),
-                    rs1.getString(2),
-                    StateTicket.valueOf(rs1.getString(3)),
-                    rs1.getInt(4),
-                    rs1.getDate(5).toLocalDate()
-            );
-            tickets.add(t);
+                Ticket t = new Ticket(
+                        rs1.getInt(1),
+                        rs1.getString(2),
+                        StateTicket.valueOf(rs1.getString(3)),
+                        rs1.getInt(4),
+                        rs1.getDate(5).toLocalDate()
+                );
+                tickets.add(t);
+            }
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-
-
-    } catch (SQLException e) {
-        e.printStackTrace();
-    }
         DBConnection.closeConnection(conn);
         return tickets;
+    }
+
+
+    public ArrayList<Ticket> selectManagedTicket(int adminId){
+
+        conn = DBConnection.startConnection(conn);
+        PreparedStatement st1;
+        ResultSet rs1;
+        ArrayList<Ticket> tickets = new ArrayList<>();
+
+        try
+        {
+            String query = "SELECT DISTINCT t.* " +
+                    "FROM TICKET t " +
+                    "JOIN MESSAGE m ON t.ticket_id = m.ticket_id " +
+                    "WHERE (t.STATO = ? OR t.STATO = ?) " +
+                    "AND m.admin_id = ? " +
+                    "ORDER BY CASE t.STATO " +
+                    "    WHEN 'IN_CORSO' THEN 1 " +
+                    "    WHEN 'CHIUSO' THEN 2 " +
+                    "END";;
+
+
+            st1 = conn.prepareStatement(query);
+
+            st1.setString(1, StateTicket.IN_CORSO.name());
+            st1.setString(2, StateTicket.CHIUSO.name());
+            st1.setInt(3, adminId);
+
+            rs1 = st1.executeQuery();
+
+            while (rs1.next()) {
+
+                Ticket t = new Ticket(
+                        rs1.getInt(1),
+                        rs1.getString(2),
+                        StateTicket.valueOf(rs1.getString(3)),
+                        rs1.getInt(4),
+                        rs1.getDate(5).toLocalDate()
+                );
+                tickets.add(t);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        DBConnection.closeConnection(conn);
+        return tickets;
+
     }
 
 

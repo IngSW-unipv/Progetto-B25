@@ -12,7 +12,6 @@ public class TransactionPanel extends JPanel {
     private DefaultTableModel modelBet;
     JTextField amountField;
     JButton confirmTransactionButton;
-    JButton cancelTransactionButton;
 
     public TransactionPanel() {
         setLayout(new BorderLayout());
@@ -47,12 +46,10 @@ public class TransactionPanel extends JPanel {
         JPanel inputPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 10));
         amountField = new JTextField(10);
         confirmTransactionButton = new JButton("Effettua");
-        cancelTransactionButton = new JButton("Indietro");
 
         inputPanel.add(new JLabel("Importo:"));
         inputPanel.add(amountField);
         inputPanel.add(confirmTransactionButton);
-        inputPanel.add(cancelTransactionButton);
 
         add(inputPanel, BorderLayout.SOUTH);
     }
@@ -70,6 +67,6 @@ public class TransactionPanel extends JPanel {
     public void clearInput() { amountField.setText(""); }
 
     public JButton getConfirmTransactionButton() {return confirmTransactionButton;}
-    public JButton getCancelTransactionButton() {return cancelTransactionButton;}
+
 
 }

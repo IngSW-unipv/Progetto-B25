@@ -16,7 +16,7 @@ public class AdminTicketView extends JFrame {
     private TicketListPanel viewSelectPanel;
     private ChatPanel chatPanel;
 
-    public AdminTicketView(String loggedName, boolean isAdmin) {
+    public AdminTicketView() {
         currentPanel = "";
 
         setTitle("Servizio Helpdesk");
@@ -28,7 +28,7 @@ public class AdminTicketView extends JFrame {
         getContentPane().setLayout(new BorderLayout());
 
         // --- Barra di navigazione ---
-        navPanel = new NavigationPanel("Home","Prendi a carico un ticket","Seleziona Ticket","Effettua transazione");
+        navPanel = new NavigationPanel("Logout","Prendi a carico un ticket","Seleziona Ticket","Effettua transazione");
         getContentPane().add(navPanel, BorderLayout.WEST);
 
         // --- Pannello centrale con CardLayout ---
@@ -36,12 +36,11 @@ public class AdminTicketView extends JFrame {
         mainPanel = new JPanel(cardLayout);
 
         // Inizializza pannelli
-        findUserPanel = new InputPanel("Cerca utente per nome_utente", "Cerca", "Indietro");
+        findUserPanel = new InputPanel("Cerca utente per nome_utente", "Cerca");
         transactionPanel = new TransactionPanel();
         handleSelectPanel = new TicketListPanel();
         viewSelectPanel = new TicketListPanel();
         chatPanel = new ChatPanel();
-        chatPanel.setLoggedName(loggedName);
 
         // Aggiungi i pannelli alla CardLayout
         mainPanel.add(findUserPanel, "FindUser");
@@ -57,9 +56,6 @@ public class AdminTicketView extends JFrame {
         cardLayout.show(mainPanel, "HandleSelect");
 
         // --- Listener bottoni nav bar ---
-        //  navPanel. getButton("Home").addActionListener(e -> showHomePanel());
-        navPanel. getButton("Prendi a carico un ticket").addActionListener(e -> showHandleSelectPanel()); // placeholder
-        navPanel. getButton("Seleziona Ticket").addActionListener(e -> showViewSelectPanel());
         navPanel. getButton("Effettua transazione").addActionListener(e -> showFindUser());
     }
 

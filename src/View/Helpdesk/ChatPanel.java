@@ -11,7 +11,6 @@ public class ChatPanel extends JPanel {
     private JScrollPane scrollPane;
     private JTextField inputField;
     private JButton sendButton;
-    private JButton backButton;
     private JButton closeTicketButton;
     private JLabel chatTitleLabel;
     private JLabel infoLabel;
@@ -38,11 +37,9 @@ public class ChatPanel extends JPanel {
 
         inputField = new JTextField(20);
         sendButton = new JButton("Invia");
-        backButton = new JButton("Indietro");
 
         inputPanel.add(inputField);
         inputPanel.add(sendButton);
-        inputPanel.add(backButton);
 
         if (isAdmin) {
             closeTicketButton = new JButton("Chiudi Ticket");
@@ -59,20 +56,40 @@ public class ChatPanel extends JPanel {
         chatTitleLabel.setText("Ticket: " + ticketTitle + "  Stato ticket: " + status);
         messagePanel.removeAll();
 
-        boolean isClosed = ("CHIUSO".equals(status));
-        inputField.setVisible(!isClosed);
-        sendButton.setVisible(!isClosed);
-        closeTicketButton.setVisible(!isClosed);
-        infoLabel.setVisible(!isClosed);
+        switch(status){
+            case "APERTO":
+            case "IN_CORSO":
+                openMode(true);
+                break;
 
-        if (isClosed) {
-            JLabel closedLabel = new JLabel("Il ticket è chiuso", SwingConstants.CENTER);
-            inputPanel.add(closedLabel);  // Aggiungiamo la JLabel vicino al tasto "Back"
+            case "CHIUSO":
+                openMode(false);
+                break;
         }
 
         revalidate();
         repaint();
 
+    }
+
+    public void openMode(boolean open) {
+        // Nascondo i componenti della chat attiva
+        inputField.setVisible(open);
+        sendButton.setVisible(open);
+
+        if (closeTicketButton != null) closeTicketButton.setVisible(open);
+        if (infoLabel != null) infoLabel.setVisible(open);
+
+        // Messaggio che indica la chiusura
+        if (!open) {
+            JLabel closedLabel = new JLabel("Il ticket è chiuso", SwingConstants.CENTER);
+            closedLabel.setFont(new Font("SansSerif", Font.BOLD, 12));
+            closedLabel.setForeground(Color.RED);
+            inputPanel.add(closedLabel);
+        }
+
+        revalidate();
+        repaint();
     }
 
     public void displayMessage(String content, String sender, String timestamp) {
@@ -121,8 +138,6 @@ public class ChatPanel extends JPanel {
     public String getInputText() { return inputField.getText(); }
     public void clearInput() { inputField.setText(""); }
     public int getCurrentTicketId() { return currentTicketId; }
-
     public JButton getSendButton() { return sendButton; }
-    public JButton getBackButton() { return backButton; }
-    public JButton closeTicketButton() { return backButton; }
+    public JButton closeTicketButton() { return  closeTicketButton; }
 }
