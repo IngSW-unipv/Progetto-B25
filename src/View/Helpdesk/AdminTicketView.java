@@ -55,8 +55,6 @@ public class AdminTicketView extends JFrame {
         currentPanel = "HandleSelect";
         cardLayout.show(mainPanel, "HandleSelect");
 
-        // --- Listener bottoni nav bar ---
-        navPanel. getButton("Effettua transazione").addActionListener(e -> showFindUser());
     }
 
 
@@ -76,6 +74,7 @@ public class AdminTicketView extends JFrame {
 
     public void showFindUser() {
         if (!currentPanel.equals("FindUser")) {
+            findUserPanel.clearField();
             cardLayout.show(mainPanel, "FindUser");
             currentPanel = "FindUser";
         }
@@ -83,6 +82,8 @@ public class AdminTicketView extends JFrame {
 
     public void showTransaction() {
         if (!currentPanel.equals("Transaction")) {
+            transactionPanel.clearTables();
+            transactionPanel.clearInput();
             cardLayout.show(mainPanel, "Transaction");
             currentPanel = "Transaction";
         }
@@ -91,6 +92,7 @@ public class AdminTicketView extends JFrame {
 
     public void showChatPanel(String ticketTitle, int ticketId, String status) {
         if (!currentPanel.equals("Chat")) {
+            chatPanel.clearInput();
             chatPanel.loadChat(ticketTitle, ticketId, status);
             cardLayout.show(mainPanel, "Chat");
             currentPanel = "Chat";

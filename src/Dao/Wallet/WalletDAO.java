@@ -20,8 +20,8 @@ public class WalletDAO implements IWalletDAO{
         try{
             String query="insert into wallet(balance, deposit_limit) values(?,?)";
             st1=conn.prepareStatement(query);
-            st1.setInt(1, wallet.getBalance());
-            st1.setInt(2, wallet.getDeposit_limit());
+            st1.setDouble(1, wallet.getBalance());
+            st1.setDouble(2, wallet.getDeposit_limit());
 
             int affectedRows=st1.executeUpdate();
             if(affectedRows>0){

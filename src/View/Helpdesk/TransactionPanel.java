@@ -17,7 +17,7 @@ public class TransactionPanel extends JPanel {
         setLayout(new BorderLayout());
 
         // colonne della tabella transazioni
-        String[] columnTransNames = {"ID transazione", "Tipo Transazione", "Importo" ,"Data Transazione","metodo pagamento"};
+        String[] columnTransNames = {"ID transazione", "Tipo Transazione", "Importo" ,"Saldo pre", "Saldo post","Data Transazione","metodo pagamento"};
         modelTransaction = new DefaultTableModel(columnTransNames, 0);
         tableTransaction = new JTable(modelTransaction);
         JScrollPane scrollPaneTransaction = new JScrollPane(tableTransaction);
@@ -26,7 +26,7 @@ public class TransactionPanel extends JPanel {
         transPanel.add(scrollPaneTransaction, BorderLayout.CENTER);
 
         // colonne della tabella giocate
-        String[] columnBetNames = {"ID giocata", "gioco","importo puntato", "importo vinto", "Data giocata"};
+        String[] columnBetNames = {"ID giocata", "gioco","importo puntato", "importo vinto","Saldo pre", "Saldo post", "Data giocata"};
         modelBet = new DefaultTableModel(columnBetNames, 0);
         tableBet = new JTable(modelBet);
         JScrollPane scrollPaneBet = new JScrollPane(tableBet);
@@ -61,6 +61,11 @@ public class TransactionPanel extends JPanel {
 
     public void addBet(Object[] betData) {
         modelBet.addRow(betData);
+    }
+
+    public void clearTables() {
+        modelTransaction.setRowCount(0);   // Svuota transazioni
+        modelBet.setRowCount(0);           // Svuota giocate
     }
 
     public String getAmountField() { return amountField.getText(); }

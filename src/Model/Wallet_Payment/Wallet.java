@@ -2,25 +2,25 @@ package Model.Wallet_Payment;
 import Model.Admin_Management.Wallet_Admin;
 public class Wallet {
     private int wallet_id;
-    private int balance;
-    private int deposit_limit;
+    private double balance;
+    private double deposit_limit;
 //visualizzazione
-    public Wallet(int wallet_id, int balance, int deposit_limit) {
+    public Wallet(int wallet_id, double balance, double deposit_limit) {
         this.wallet_id = wallet_id;
         this.balance = balance;
         this.deposit_limit = deposit_limit;
     }
     //creazione
-    public Wallet(int balance, int deposit_limit) {
+    public Wallet(double balance, double deposit_limit) {
         this.balance = balance;
         this.deposit_limit = deposit_limit;
     }
 
-    public int getDeposit_limit() {
+    public double getDeposit_limit() {
         return deposit_limit;
     }
 
-    public int getBalance() {
+    public double getBalance() {
         return balance;
     }
 
@@ -32,11 +32,11 @@ public class Wallet {
         this.wallet_id = wallet_id;
     }
 
-    public void setBalance(int balance) {
+    public void setBalance(double balance) {
         this.balance = balance;
     }
 
-    public void setDeposit_limit(int deposit_limit) {
+    public void setDeposit_limit(double deposit_limit) {
         this.deposit_limit = deposit_limit;
     }
 }

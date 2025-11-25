@@ -54,6 +54,7 @@ public class UserTicketView extends JFrame {
 
     public void showCreateTicketPanel() {
         if (!currentPanel.equals("CreateTicket")) {
+            createTicketPanel.clearField();
             cardLayout.show(mainPanel, "CreateTicket");
             currentPanel = "CreateTicket";
         }
@@ -68,6 +69,7 @@ public class UserTicketView extends JFrame {
 
     public void showChatPanel(String ticketTitle, int ticketId, String status) {
         if (!currentPanel.equals("Chat")) {
+            chatPanel.clearInput();
             chatPanel.loadChat(ticketTitle, ticketId, status);
             cardLayout.show(mainPanel, "Chat");
             currentPanel = "Chat";

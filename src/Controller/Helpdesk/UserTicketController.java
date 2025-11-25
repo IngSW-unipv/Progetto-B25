@@ -2,8 +2,10 @@ package Controller.Helpdesk;
 
 import Dao.Helpdesk.MessageDAO;
 import Dao.Helpdesk.TicketDAO;
+import Dao.User.UserDAO;
 import Model.Helpdesk.Message;
 import Model.Helpdesk.Ticket;
+import Model.User_Management.User;
 import Model.Util.DataConverter;
 import Model.Util.Session;
 import View.Helpdesk.TicketPanel;
@@ -15,21 +17,28 @@ import java.util.ArrayList;
 public class UserTicketController {
     private TicketDAO ticketDAO;
     private MessageDAO messageDAO;
+    private UserDAO userDAO;
     private UserTicketView userTicketView;
-    private boolean isAdmin;
+    private int userId;
     private String identifier;
 
-    public UserTicketController(TicketDAO ticketDAO, MessageDAO messageDAO, UserTicketView userTicketView) {
+    public UserTicketController(TicketDAO ticketDAO, MessageDAO messageDAO, UserDAO userDAO, UserTicketView userTicketView) {
         this.ticketDAO = ticketDAO;
         this.messageDAO = messageDAO;
+        this.userDAO = userDAO;
         this.userTicketView = userTicketView;
 
         if(!Session.getInstance().isAdmin()){
-            isAdmin=Session.getInstance().isAdmin();
+            boolean isAdmin = Session.getInstance().isAdmin();
             identifier=Session.getInstance().getIdentifier();
             userTicketView.getChatPanel().setIsAdmin(isAdmin);
             userTicketView.getChatPanel().setLoggedName(identifier);
+
+            User user = userDAO.selectByUsername(identifier);
+            userId=user.getUser_id();
         }
+
+
         setupListeners();
     }
 
@@ -41,8 +50,10 @@ public class UserTicketController {
 
         // CREA TICKET: conferma creazione
         userTicketView.getCreateTicketPanel().getConfirmFindButton().addActionListener(e -> {
-            String title = userTicketView.getCreateTicketPanel().getInput();
-            if (title != null && !title.isEmpty()) {
+            String input = userTicketView.getCreateTicketPanel().getInput();
+            String title = input == null ? "" : input.strip();
+
+            if (!title.isBlank()) {
                 Ticket ticket= new Ticket(title,userId);
                 ticketDAO.createTicket(ticket);
                 openChat(ticket.getTicket_id(), title,ticket.getState().name());
@@ -70,8 +81,10 @@ public class UserTicketController {
 
         // CHAT: invia messaggio
         userTicketView.getChatPanel().getSendButton().addActionListener(e -> {
-            String content = userTicketView.getChatPanel().getInputText();
-            if (!content.isEmpty()) {
+            String input = userTicketView.getChatPanel().getInputText();
+            String content = input == null ? "" : input.strip();
+
+            if (!content.isBlank()) {
                 Message message = new Message(content,userTicketView.getChatPanel().getCurrentTicketId(),0);
                 messageDAO.createMessage(message);
                 String formatDateTime= DataConverter.joinstring(DataConverter.dateconverter(message.getMessage_date()),

@@ -19,7 +19,7 @@ public class TransactionDAO implements ITransactionDAO {
             st1 = conn.prepareStatement(query);
             st1.setString(1, transaction.getTransaction_type().name());
             st1.setString(2, transaction.getPayment_method().name());
-            st1.setInt(3, transaction.getAmount());
+            st1.setDouble(3, transaction.getAmount());
             st1.setDate(4, Date.valueOf(transaction.getCard_expiry()));
             st1.setDate(5, Date.valueOf(transaction.getDate_transaction()));
             st1.setTime(6, Time.valueOf(transaction.getTime_transaction()));

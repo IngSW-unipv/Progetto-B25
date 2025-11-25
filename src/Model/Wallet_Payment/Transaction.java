@@ -10,16 +10,16 @@ public class Transaction {
     private int wallett_id;
     private Payment_Type transaction_type;
     private Payment_Method payment_method;
-    private int amount;
+    private double amount;
     private LocalDate card_expiry;
     private LocalDate date_transaction;
     private LocalTime time_transaction;
-    private Double pre_currency;
-    private Double post_currency;
+    private double pre_currency;
+    private double post_currency;
     private int card_last4;
     private int Admin_id;
 //creazione
-    public Transaction(int wallett_id, Payment_Type transaction_type, Payment_Method payment_method,LocalDate card_expiry, int amount, Double pre_currency, Double post_currency, int card_last4, int Admin_id) {
+    public Transaction(int wallett_id, Payment_Type transaction_type, Payment_Method payment_method,LocalDate card_expiry, double amount, Double pre_currency, Double post_currency, int card_last4, int Admin_id) {
         this.wallett_id = wallett_id;
         this.transaction_type = transaction_type;
         this.payment_method = payment_method;
@@ -34,7 +34,7 @@ public class Transaction {
     }
     //visualizzazione
 
-    public Transaction(int wallett_id, Payment_Type transaction_type, Payment_Method payment_method, int amount, LocalDate card_expiry, int transaction_id, LocalDate date_transaction, LocalDateTime time_transaction, Double post_currency, Double pre_currency, int card_last4, int Admin_id) {
+    public Transaction(int wallett_id, Payment_Type transaction_type, Payment_Method payment_method, double amount, LocalDate card_expiry, int transaction_id, LocalDate date_transaction, LocalTime time_transaction, Double post_currency, Double pre_currency, int card_last4, int Admin_id) {
         this.wallett_id = wallett_id;
         this.transaction_type = transaction_type;
         this.payment_method = payment_method;
@@ -63,7 +63,7 @@ public class Transaction {
         return payment_method;
     }
 
-    public int getAmount() {
+    public double getAmount() {
         return amount;
     }
 
@@ -111,7 +111,7 @@ public class Transaction {
         this.payment_method = payment_method;
     }
 
-    public void setAmount(int amount) {
+    public void setAmount(double amount) {
         this.amount = amount;
     }
 
