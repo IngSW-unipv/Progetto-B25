@@ -1,5 +1,7 @@
 package View.Helpdesk;
 
+import View.Util.InputErrorAlert;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -26,7 +28,7 @@ public class UserTicketView extends JFrame {
         getContentPane().setLayout(new BorderLayout());
 
         // --- Barra di navigazione ---
-        navPanel = new NavigationPanel("Logout","Crea Ticket","Seleziona Ticket");
+        navPanel = new NavigationPanel("Home","Crea Ticket","Seleziona Ticket");
         getContentPane().add(navPanel, BorderLayout.WEST);
 
         // --- Pannello centrale con CardLayout ---
@@ -52,9 +54,10 @@ public class UserTicketView extends JFrame {
     }
 
 
-    public void showCreateTicketPanel() {
+    public void showCreateTicketPanel(InputErrorAlert errorAlert) {
         if (!currentPanel.equals("CreateTicket")) {
             createTicketPanel.clearField();
+            errorAlert.clearAll();
             cardLayout.show(mainPanel, "CreateTicket");
             currentPanel = "CreateTicket";
         }

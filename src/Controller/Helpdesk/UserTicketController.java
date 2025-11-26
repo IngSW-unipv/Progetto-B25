@@ -10,6 +10,8 @@ import Model.Util.DataConverter;
 import Model.Util.Session;
 import View.Helpdesk.TicketPanel;
 import View.Helpdesk.UserTicketView;
+import View.Util.InputErrorAlert;
+
 import java.util.ArrayList;
 
 
@@ -21,6 +23,7 @@ public class UserTicketController {
     private UserTicketView userTicketView;
     private int userId;
     private String identifier;
+    private InputErrorAlert errorAlert;
 
     public UserTicketController(TicketDAO ticketDAO, MessageDAO messageDAO, UserDAO userDAO, UserTicketView userTicketView) {
         this.ticketDAO = ticketDAO;
@@ -36,6 +39,10 @@ public class UserTicketController {
 
             User user = userDAO.selectByUsername(identifier);
             userId=user.getUser_id();
+
+            errorAlert = new InputErrorAlert();
+            errorAlert.registerField(userTicketView.getCreateTicketPanel().getInputField(),
+                    userTicketView.getCreateTicketPanel().getErrorLabel());
         }
 
 
@@ -45,20 +52,20 @@ public class UserTicketController {
     private void setupListeners() {
         // HOME: crea ticket
         userTicketView.getNavPanel().getButton("Crea Ticket").addActionListener(e ->
-                userTicketView.showCreateTicketPanel()
+                userTicketView.showCreateTicketPanel(errorAlert)
         );
 
         // CREA TICKET: conferma creazione
         userTicketView.getCreateTicketPanel().getConfirmFindButton().addActionListener(e -> {
             String input = userTicketView.getCreateTicketPanel().getInput();
             String title = input == null ? "" : input.strip();
-
             if (!title.isBlank()) {
+                errorAlert.clearAll();
                 Ticket ticket= new Ticket(title,userId);
                 ticketDAO.createTicket(ticket);
                 openChat(ticket.getTicket_id(), title,ticket.getState().name());
             } else {
-                //userTicketView.showHomePanel();
+                errorAlert.showError(userTicketView.getCreateTicketPanel().getInputField(), "Il titolo non può essere vuoto");
             }
         });
 
@@ -97,7 +104,7 @@ public class UserTicketController {
 
 
         /* HOME: logout
-        userTicketView.getNavPanel().getButton("Logout").addActionListener(e ->
+        userTicketView.getNavPanel().getButton("Home").addActionListener(e ->
                 userTicketView.showCreateTicketPanel()
         );*/
 

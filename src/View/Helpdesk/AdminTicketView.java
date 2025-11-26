@@ -1,5 +1,7 @@
 package View.Helpdesk;
 
+import View.Util.InputErrorAlert;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -72,18 +74,20 @@ public class AdminTicketView extends JFrame {
         }
     }
 
-    public void showFindUser() {
+    public void showFindUser(InputErrorAlert errorAlert) {
         if (!currentPanel.equals("FindUser")) {
             findUserPanel.clearField();
+            errorAlert.clearAll();
             cardLayout.show(mainPanel, "FindUser");
             currentPanel = "FindUser";
         }
     }
 
-    public void showTransaction() {
+    public void showTransaction(InputErrorAlert errorAlert) {
         if (!currentPanel.equals("Transaction")) {
             transactionPanel.clearTables();
             transactionPanel.clearInput();
+            errorAlert.clearAll();
             cardLayout.show(mainPanel, "Transaction");
             currentPanel = "Transaction";
         }

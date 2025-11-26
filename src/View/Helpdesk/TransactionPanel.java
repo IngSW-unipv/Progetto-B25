@@ -10,8 +10,9 @@ public class TransactionPanel extends JPanel {
     private DefaultTableModel modelTransaction;
     private JTable tableBet;
     private DefaultTableModel modelBet;
-    JTextField amountField;
-    JButton confirmTransactionButton;
+    private JTextField amountField;
+    private JLabel amountErrorLabel;
+    private JButton confirmTransactionButton;
 
     public TransactionPanel() {
         setLayout(new BorderLayout());
@@ -45,10 +46,14 @@ public class TransactionPanel extends JPanel {
         // Pannello per l'inserimento dei dati
         JPanel inputPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 10));
         amountField = new JTextField(10);
+        amountErrorLabel = new JLabel();
+        amountErrorLabel.setForeground(Color.RED);
+        amountErrorLabel.setVisible(false);
         confirmTransactionButton = new JButton("Effettua");
 
         inputPanel.add(new JLabel("Importo:"));
         inputPanel.add(amountField);
+        inputPanel.add(amountErrorLabel);
         inputPanel.add(confirmTransactionButton);
 
         add(inputPanel, BorderLayout.SOUTH);
@@ -69,6 +74,8 @@ public class TransactionPanel extends JPanel {
     }
 
     public String getAmountField() { return amountField.getText(); }
+    public JTextField getAmountFieldComponent() { return amountField; }   // ⬅ SERVE PER InputErrorAlert
+    public JLabel getAmountErrorLabel() { return amountErrorLabel; }
     public void clearInput() { amountField.setText(""); }
 
     public JButton getConfirmTransactionButton() {return confirmTransactionButton;}

@@ -20,6 +20,7 @@ import Model.Wallet_Payment.Transaction;
 import Model.Wallet_Payment.Wallet;
 import View.Helpdesk.AdminTicketView;
 import View.Helpdesk.TicketPanel;
+import View.Util.InputErrorAlert;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -37,6 +38,7 @@ public class AdminTicketController {
     private int adminId;
     private String identifier;
     private String selectedUsername;
+    private InputErrorAlert errorAlert;
 
     public AdminTicketController(TicketDAO ticketDAO, MessageDAO messageDAO, UserDAO userDAO, AdminDAO adminDAO,
                                  TransactionDAO transactionDAO, WalletDAO walletDAO, Played_GameDAO playedGameDAO, AdminTicketView adminTicketView) {
@@ -57,6 +59,13 @@ public class AdminTicketController {
 
             Admin admin = adminDAO.selectByEmail(identifier);
             adminId=admin.getAdmin_id();
+
+            errorAlert = new InputErrorAlert();
+            errorAlert.registerField(adminTicketView.getFindUserPanel().getInputField(),
+                    adminTicketView.getFindUserPanel().getErrorLabel());
+
+            errorAlert.registerField(adminTicketView.getTransactionPanel().getAmountFieldComponent(),
+                    adminTicketView.getTransactionPanel().getAmountErrorLabel());
         }
         setupListeners();
     }
@@ -133,25 +142,25 @@ public class AdminTicketController {
 
         // HOME: apre il panello per ricercare utente
         adminTicketView.getNavPanel().getButton("Effettua transazione").addActionListener(e ->
-                adminTicketView.showFindUser()
+                adminTicketView.showFindUser(errorAlert)
         );
 
         //PANNELLO INSERIMENTO UTENTE: utente da ricercare
         adminTicketView.getFindUserPanel().getConfirmFindButton().addActionListener(e -> {
             String input =adminTicketView.getFindUserPanel().getInput();
             String text = input == null ? "" : input.strip();
-
             if (!text.isBlank()) {
                 User user = userDAO.selectByUsername(text);
                 if (user != null) {
+                    errorAlert.clearAll();
                     selectedUsername=text;
                     openTable(selectedUsername);
                 }else{
-                //
+                    errorAlert.showError(adminTicketView.getFindUserPanel().getInputField(),"Utente non trovato");
                 }
 
             } else {
-                //userTicketView.showHomePanel();
+                errorAlert.showError(adminTicketView.getFindUserPanel().getInputField(),"Campo di ricerca vuoto");
             }
         });
 
@@ -168,7 +177,7 @@ public class AdminTicketController {
                     try {
                         amount = Double.parseDouble(content);
                         if (amount > 0) {
-
+                            errorAlert.clearAll();
                         Wallet wallet= walletDAO.selectByUsername(selectedUsername);
                         double newBalance = wallet.getBalance()+amount;
                         walletDAO.updateBalance(wallet.getWallet_id(),newBalance);
@@ -195,15 +204,15 @@ public class AdminTicketController {
                             adminTicketView.getTransactionPanel().clearInput();
 
                         }else{
-
+                            errorAlert.showError(adminTicketView.getTransactionPanel().getAmountFieldComponent(),"La cifra deve essere positiva");
                         }
 
                     } catch (NumberFormatException ex) {
-
+                        errorAlert.showError(adminTicketView.getTransactionPanel().getAmountFieldComponent(),"Caratteri non numerici rilevati");
                     }
 
                 }else{
-
+                    errorAlert.showError(adminTicketView.getTransactionPanel().getAmountFieldComponent(),"Cifra non inserita");
                 }
 
             }
@@ -226,7 +235,7 @@ public class AdminTicketController {
     private void openTable (String username) {
         ArrayList<Transaction> transactions = transactionDAO.selectByUsername(username);
         ArrayList<Played_Game> playedGames = played_GameDAO.selectByUsername(username);
-        adminTicketView.showTransaction();
+        adminTicketView.showTransaction(errorAlert);
         for (Transaction transaction : transactions) {
 
             String formatDateTime= DataConverter.joinstring(DataConverter.dateconverter(transaction.getDate_transaction()),
